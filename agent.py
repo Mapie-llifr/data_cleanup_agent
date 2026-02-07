@@ -3,12 +3,19 @@
 class Agent:
     def __init__(self, goal):
         self.goal = goal
-        self.memory = []   # working memory
+        self.memory = []
 
-    def add_observation(self, obs):
-        self.memory.append(obs)
+    def observe(self, text):
+        self.memory.append(text)
 
-    def get_context(self):
-        text = "\n".join(self.memory)
-        return f"Goal: {self.goal}\n\nMemory:\n{text}"
+    def context(self):
+        history = "\n".join(self.memory[-10:])  # last 10 steps
+        return f"""
+GOAL:
+{self.goal}
+
+PAST ACTIONS AND OBSERVATIONS:
+{history}
+"""
+
 

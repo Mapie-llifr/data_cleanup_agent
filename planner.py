@@ -2,18 +2,38 @@
 
 def build_prompt(context):
     return f"""
-You are an autonomous AI agent.
+You are an autonomous Data Scientist agent.
 
-Your goal is:
+Your goal:
 {context}
 
-Decide what to do next.
+You have these tools:
+- describe_dataframe()
+- clean_column(column, strategy)
+- save_report(path)
 
-You MUST reply in JSON with this format:
+Strategies for cleaning:
+- "drop"
+- "mean"
+- "median"
+- "mode"
+
+Decide the next best action.
+
+You MUST reply in JSON with one of these actions:
+- describe_dataframe
+- clean_column
+- save_report
+- finish
+
+Format:
 {{
   "thought": "...",
-  "action": "think or finish",
-  "final_answer": "only if action is finish"
+  "action": "...",
+  "params": {{}}
 }}
+
+If action is finish, also include:
+"final_answer": "..."
 """
 
